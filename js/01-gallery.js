@@ -23,55 +23,38 @@ function createElementsMarkup(galleryItems) {
         }).join("")
 };
 
+galleryContainer.addEventListener("click", selectGallery);
 
+    const instance = basicLightbox.create(`
+<img class="gallery__link" src="${selectGallery}">`, {
+        onShow: (instance) => {
+           window.addEventListener("keydown", handClick);
+        },
+        onClose: (instance) => {
+           window.removeEventListener("keydown", handClick);
+        }
+    })
 
+function selectGallery(event) {
+    event.preventDefault();
+    const selectGallery = event.target.dataset.source;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// galleryContainer.addEventListener("click", selectGallery);
-
-//     const instance = basicLightbox.create(`
-// <img class="gallery__link" src="${selectGallery}">`, {
-//         onShow: (instance) => {
-//            window.addEventListener("keydown", handClick);
-//         },
-//         onClose: (instance) => {
-//            window.removeEventListener("keydown", handClick);
-//         }
-//     })
-
-// function selectGallery(event) {
-//     event.preventDefault();
-//     const selectGallery = event.target.dataset.source;
-
-//     if (event.target.className !== "gallery__image") {
-//         console.log(event.target.className);
-//         return;
-//     }
-//     instance.show();  
-//     instance.element().querySelector(".gallery__link").src = selectGallery;
+    if (event.target.className !== "gallery__image") {
+        console.log(event.target.className);
+        return;
+    }
+    instance.show();  
+    instance.element().querySelector(".gallery__link").src = selectGallery;
     
-//     };
+    };
 
     
-//    function handClick(evt) {
-//         if (evt.keyCode === 27) {
-//             instance.close()
-//             return;
-//         }
-//     }
+   function handClick(evt) {
+        if (evt.keyCode === 27) {
+            instance.close()
+            return;
+        }
+    }
 
 
 
