@@ -25,52 +25,29 @@ function createElementsMarkup(galleryItems) {
 
 galleryContainer.addEventListener("click", selectGallery);
 
-    const instance = basicLightbox.create(`
-<img class="gallery__link" src="${selectGallery}">`, {
-        onShow: (instance) => {
-           window.addEventListener("keydown", handClick);
-        },
-        onClose: (instance) => {
-           window.removeEventListener("keydown", handClick);
-        }
-    })
-
 function selectGallery(event) {
+    console.log(event.target);
+    console.log(event.currentTarget);
     event.preventDefault();
-    const selectGallery = event.target.dataset.source;
-
-    if (event.target.className !== "gallery__image") {
+};
+const instance = basicLightbox.create(`<img
+             class="gallery__image"
+             src="${preview}"
+             data-source="${original}"
+             alt="${description}"
+             />`, {
+    onShow: (instance) => {
+              galleryContainer.addEventListener('onShow', openCloseLightbox)
+    },
+        
+        
+    onClose: (instance) => {
+        galleryContainer.removeEventListener('onClose', openCloseLightbox)
+    }
+});
+function openCloseLightbox(event) {
+        if (event.target.className !== "gallery__image") {
         console.log(event.target.className);
         return;
     }
-    instance.show();  
-    instance.element().querySelector(".gallery__link").src = selectGallery;
-    
-    };
-
-    
-   function handClick(evt) {
-        if (evt.keyCode === 27) {
-            instance.close()
-            return;
-        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
