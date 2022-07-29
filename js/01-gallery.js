@@ -37,12 +37,12 @@ const instance = basicLightbox.create(`<img
              alt="${description}"
              />`, {
     onShow: (instance) => {
-              galleryContainer.addEventListener('onShow', openCloseLightbox)
+              window.addEventListener("keydown", openCloseLightbox)
     },
         
         
     onClose: (instance) => {
-        galleryContainer.removeEventListener('onClose', openCloseLightbox)
+        window.removeEventListener("keydown", openCloseLightbox)
     }
 });
 function openCloseLightbox(event) {
