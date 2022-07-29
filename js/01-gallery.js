@@ -24,43 +24,15 @@ function createElementsMarkup(galleryItems) {
 };
 
 galleryContainer.addEventListener("click", selectGallery);
+ const instance = basicLightbox.create(`
+<img class="gallery__link" src="${selectGallery}">`, {
+        onShow: (instance) => {
+           window.addEventListener("keydown", handClick);
+        },
+        onClose: (instance) => {
+           window.removeEventListener("keydown", handClick);
+        }
+    })
 
-function selectGallery(event) {
-    if (event.target.nodeName !== 'IMG') {
-        return;
-    }
-    console.log(event.target);
-    console.log(event.currentTarget);
-    event.preventDefault();
-};
 
 
-const instance = basicLightbox.create(`<img
-             class="gallery__image"
-             src="${preview}"
-             data-source="${original}"
-             alt="${description}"
-             />`, {
-    onShow: (instance) => {
-              window.addEventListener("keydown", onEscPress)
-    },
-        
-        
-    onClose: (instance) => {
-        window.removeEventListener("keydown", onEscPress)
-    }
-});
-function onModalClose() {
-    instance.close()
-}
-function onEscPress(event) {
-    if (event.code === "Escape") {
-        onModalClose();
-    }
-}
-function openCloseLightbox(event) {
-        if (event.target.className !== "gallery__image") {
-        console.log(event.target.className);
-        return;
-    }
-    }
