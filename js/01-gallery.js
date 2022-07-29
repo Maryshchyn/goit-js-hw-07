@@ -5,6 +5,12 @@ const galleryContainer = document.querySelector(".gallery");
 const galleryMarkup = createElementsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML("beforeend", galleryMarkup);
 
+galleryContainer.addEventListener("click", selectGallery);
+
+function selectGallery(evt) {
+    evt.preventDefault();
+}
+
 
 function createElementsMarkup(galleryItems) {
     return galleryItems
@@ -23,16 +29,27 @@ function createElementsMarkup(galleryItems) {
         }).join("")
 };
 
-galleryContainer.addEventListener("click", selectGallery);
- const instance = basicLightbox.create(`
-<img class="gallery__link" src="${selectGallery}">`, {
-        onShow: (instance) => {
-           window.addEventListener("keydown", handClick);
-        },
-        onClose: (instance) => {
-           window.removeEventListener("keydown", handClick);
-        }
-    })
+
+const instance = basicLightbox.create(`<img
+             class="gallery__image"
+             src="${preview}"
+             data-source="${original}"
+             alt="${description}"
+             />`, {
+    onShow: (instance) => {
+        window.addEventListener("keydown", openClose);
+    },
+    onClose: (instance) => {
+        window.removeEventListener("keydown", openClose);
+    }
+});
+
+function openClose(evt) {
+    if (evt.target.className !== "gallery__image") {
+        console.log(evt.target.className);
+        return;
+    }
+}
 
 
 
