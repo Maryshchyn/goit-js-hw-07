@@ -19,6 +19,8 @@ function createElementsMarkup(galleryItems) {
         }).join("")
 };
 galleryContainer.insertAdjacentHTML("beforeend", galleryMarkup);
+
+//innerHTML
 function selectGallery(event) {
     console.log(event.target);
     console.log(event.currentTarget);
@@ -26,7 +28,9 @@ function selectGallery(event) {
     if(event.target.nodeName !== 'IMG'){
         console.log(event.target.className);
         return;}
-const instance = basicLightbox.create( `<div class="modal">
+
+
+    const instance = basicLightbox.create( `<div class="modal">
 <img src = ${event.target.dataset.source}
   alt=${event.target.alt}
   width = '1280'
@@ -36,6 +40,8 @@ const instance = basicLightbox.create( `<div class="modal">
     onShow: instance => {
         console.log('add Listener');
         instance.element().querySelector('img').onclick = instance.close;
+
+        console.log(instance.element());
               window.addEventListener("keydown", handleEscape);
     },
     onClose: instance => {
